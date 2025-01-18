@@ -2,7 +2,8 @@ DROP TABLE IF EXISTS users;
 
 CREATE TABLE users(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    email TEXT NOT NULL,
+    name TEXT NOT NULL UNIQUE,
+    email TEXT NOT NULL UNIQUE,
+    phoneNumber INTEGER NOT NULL UNIQUE,
     password TEXT NOT NULL
 );
