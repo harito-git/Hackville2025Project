@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 import sqlite3
 import hashlib
 
-app = Flask(__name__)
+app = Flask("__name__", template_folder="frontend")
 app.secret_key = "your_secret_key"
 
 def hash_password(password):
@@ -17,7 +17,7 @@ def get_db_connection():
 def index():
     if 'user_id' in session:
         return f"Welcome, {session['username']}! <a href='/logout'>Logout</a>"
-    return "Welcome! <a href='/login'>Login</a> or <a href='/register'>Register</a>"
+    return render_template('index.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -38,7 +38,7 @@ def register():
         finally:
             conn.close()
 
-    return render_template('Frontend/register.html')
+    return render_template('register.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -58,7 +58,7 @@ def login():
         else:
             flash('Invalid email or password.', 'danger')
 
-    return render_template('Frontend/login.html')
+    return render_template('login.html')
 
 @app.route('/logout')
 def logout():
