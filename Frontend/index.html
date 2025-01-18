@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Wellness Dashboard</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="login-page" class="page">
+      <div class="login-container">
+        <div class="login-card">
+          <form id="login-form" class="login-form">
+            <div class="text-center">
+              <h1>Welcome Back</h1>
+              <p class="text-gray">Sign in to your wellness dashboard</p>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                required
+              />
+            </div>
+
+            <button type="submit" class="btn btn-primary w-full">
+              Sign In
+            </button>
+
+            <p class="text-center text-gray">
+              Don't have an account? <a href="#" class="text-blue">Sign up</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div id="dashboard-page" class="page hidden">
+      <div class="dashboard-container">
+        <header class="dashboard-header">
+          <h1>Student Wellness Dashboard</h1>
+          <div class="header-actions">
+            <button id="settings-btn" class="btn btn-icon">
+              <i class="ri-settings-3-line"></i>
+            </button>
+            <div class="profile-dropdown">
+              <button class="btn btn-icon" id="profile-btn">
+                <img
+                  src="https://api.dicebear.com/7.x/avataaars/svg?seed=John"
+                  alt="Profile"
+                  class="avatar"
+                />
+              </button>
+              <div class="dropdown-menu hidden" id="profile-menu">
+                <div class="dropdown-header">
+                  <p class="user-name">John Doe</p>
+                  <p class="user-email">john@example.com</p>
+                </div>
+                <hr />
+                <a href="#" class="dropdown-item"
+                  ><i class="ri-settings-3-line"></i> Settings</a
+                >
+                <a href="#" class="dropdown-item" id="logout-btn"
+                  ><i class="ri-logout-box-line"></i> Logout</a
+                >
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon blue"><i class="ri-drop-line"></i></div>
+            <h3>Water Intake</h3>
+            <div class="progress-circle" data-value="75">
+              <span class="progress-value">75%</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon purple"><i class="ri-moon-line"></i></div>
+            <h3>Sleep Hours</h3>
+            <div class="progress-circle" data-value="60">
+              <span class="progress-value">60%</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon orange"><i class="ri-cup-line"></i></div>
+            <h3>Study Breaks</h3>
+            <div class="progress-circle" data-value="40">
+              <span class="progress-value">40%</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green">
+              <i class="ri-emotion-happy-line"></i>
+            </div>
+            <h3>Mood</h3>
+            <div class="progress-circle" data-value="85">
+              <span class="progress-value">85%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="quick-actions-panel">
+            <div class="card">
+              <h2>Quick Actions</h2>
+              <div class="quick-actions-list">
+                <button class="btn btn-outline">
+                  <i class="ri-drop-line"></i> Log Water
+                </button>
+                <button class="btn btn-outline">
+                  <i class="ri-moon-line"></i> Log Sleep
+                </button>
+                <button class="btn btn-outline">
+                  <i class="ri-cup-line"></i> Set Break
+                </button>
+                <button class="btn btn-outline">
+                  <i class="ri-emotion-happy-line"></i> Track Mood
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="wellness-chart">
+            <div class="card">
+              <h2>Weekly Wellness Summary</h2>
+              <div class="chart-container">
+                <!-- Chart will be added with JavaScript -->
+              </div>
+            </div>
+          </div>
+
+          <div class="wellness-timer">
+            <div class="card">
+              <h2>Wellness Timer</h2>
+              <div class="timer-display">15:00</div>
+              <select class="timer-duration">
+                <option value="5">5 minutes</option>
+                <option value="10">10 minutes</option>
+                <option value="15" selected>15 minutes</option>
+                <option value="20">20 minutes</option>
+                <option value="30">30 minutes</option>
+              </select>
+              <button class="btn btn-primary w-full" id="timer-btn">
+                <i class="ri-play-line"></i> Start
+              </button>
+            </div>
+          </div>
+
+          <div class="exercise-section">
+            <div class="card exercise-widget">
+              <div class="card-header">
+                <h2>Today's Exercises</h2>
+                <button class="btn btn-outline">
+                  <i class="ri-boxing-line"></i> Generate Routine
+                </button>
+              </div>
+              <div class="exercise-list">
+                <!-- Exercise items will be added with JavaScript -->
+              </div>
+            </div>
+
+            <div class="card workout-generator">
+              <h2>Generate Workout</h2>
+              <div class="form-group">
+                <label>Intensity Level</label>
+                <select>
+                  <option>Beginner</option>
+                  <option>Intermediate</option>
+                  <option>Advanced</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Duration (minutes)</label>
+                <select>
+                  <option>15</option>
+                  <option selected>30</option>
+                  <option>45</option>
+                  <option>60</option>
+                </select>
+              </div>
+              <button class="btn btn-primary w-full">
+                Generate Workout Plan
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
