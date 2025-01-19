@@ -2,6 +2,7 @@
 <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
 <link rel="stylesheet" href="StudentClubCorner.css">
+
 <style>
   /* Circle styles */
   .progress-circle {
@@ -153,20 +154,8 @@
     <title>Student Clubs News</title>
     <link rel="stylesheet" href="StudentClubCorner.css">
 </head>
-<body>
-        <div class="news-ticker">
-          <div class="news-items">
-            <span class="news-item">Breaking: Hackville 2025 kicks off this weekend with exciting challenges!</span>
-            <span class="news-item">Update: Wellness apps are trending among student projects.</span>
-            <span class="news-item">Reminder: Don't forget to stay hydrated and take breaks!</span>
-            <span class="news-item">Hackathon Tip: Collaborate effectively with your team for success!</span>
-          </div>
-        </div>
-        <script src="StudenClubCorner.js"></script>
-</body>
 </body>
 </html>
-
       <svg width="304" height="105" viewBox="0 0 304 105" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="51.0991" cy="55.4487" r="40.4224" transform="rotate(-15 51.0991 55.4487)" fill="#E6EDF7" />
         <path
@@ -183,6 +172,9 @@
           fill="#050F1F" fill-opacity="0.7" />
       </svg>
       <h1>Student Wellness Dashboard</h1>
+      <h1 id="day"></h1>
+      <h2 id="month_date_year"></h2>
+
       <h1 id="current-time"></h1>
       </header>
       <!-- Stats Grid -->
@@ -195,6 +187,7 @@
           </div>
           <script>
             let time = document.getElementById("current-time");
+            let date = document.get
 
             function updateTime() {
               let d = new Date();
@@ -203,6 +196,18 @@
             setInterval(updateTime, 1000);
 
             updateTime();
+
+            months = ['January', 'Februrary', 'March', 'April', 'May', 'June', 'July', 'Augest', 'September', 'October', 'November', 'Saturday']
+            days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+            date_date = new Date()
+            current_day = data_data.getDay()
+            document.getElementById('day').textContent = days[current_day]
+
+            current_month = date_data.getMonth()
+            current_date = date_data.getDate()
+            current_year = date_data.getFullYear()
+            document.getElementById('month_date_year').textContent = months[current_month] + current_date + current_year
+
           </script>
           <div class="progress-circle" id="waterCircle">
             <div class="circle-fill" id="waterFill"></div>
@@ -267,6 +272,19 @@
         <button class="btn btn-outline" id="resetBtn">
           Reset
         </button>
+        <footer>
+          <body>
+            <div class="news-ticker">
+              <div class="news-items">
+                <span class="news-item">Breaking: Hackville 2025 kicks off this weekend with exciting challenges!</span>
+                <span class="news-item">Update: Wellness apps are trending among student projects.</span>
+                <span class="news-item">Reminder: Don't forget to stay hydrated and take breaks!</span>
+                <span class="news-item">Hackathon Tip: Collaborate effectively with your team for success!</span>
+              </div>
+            </div>
+            <script src="StudenClubCorner.js"></script>
+    </body>
+        </footer>
       </div>
     </div>
   </div>
@@ -352,23 +370,12 @@
     });
   </script>
 </body>
-
 </html>
-
-<div class="wellness-chart">
-  <div class="card">
-    <h2>Weekly Wellness Summary</h2>
-    <div class="chart-container">
-    </div>
-  </div>
-</div>
-
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport">
   <title>Wellness Timer</title>
   <style>
     body {
@@ -434,7 +441,7 @@
       <option value="900" selected>15 minutes</option>
       <option value="1200">20 minutes</option>
       <option value="1800">30 minutes</option>
-    </select>
+    </select
     <button id="startButton">▶ Start</button>
   </div>
 

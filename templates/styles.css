@@ -375,7 +375,7 @@
   
   .news-items {
     display: inline-block;
-    animation: scroll 20s linear infinite; /* Control the scroll speed here */
+    animation: scroll 45s linear infinite; /* Control the scroll speed here */
   }
   
   .news-item {
