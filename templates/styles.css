@@ -8,7 +8,7 @@
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
       "Helvetica Neue", Arial, sans-serif;
-    background-color: #f8f9fa;
+    background-color: #316599;
     color: #333;
     line-height: 1.5;
   }
@@ -355,32 +355,32 @@
     margin: 0;
     padding: 0;
     background-color: #f4f4f9;
-    position: relative; /* Ensure proper layout for the ticker */
-    height: 100vh; /* Full height of the page */
+    position: relative; 
+    height: 100vh;
   }
   
   .news-ticker {
-    position: fixed; /* Fix the ticker at the bottom */
-    bottom: 0; /* Align to the bottom */
+    position: fixed; 
+    bottom: 0; 
     left: 0;
-    width: 100%; /* Full width of the viewport */
+    width: 100%; 
     overflow: hidden;
     white-space: nowrap;
-    background-color: #4f51535a;
+    background-color: #fcfcfcc7;
     color: #010809;
     padding: 10px 0;
-    z-index: 1000; /* Ensure it stays on top of other content */
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Add subtle shadow for better visibility */
+    z-index: 1000; 
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); 
   }
   
   .news-items {
     display: inline-block;
-    animation: scroll 45s linear infinite; /* Control the scroll speed here */
+    animation: scroll 45s linear infinite; 
   }
   
   .news-item {
     display: inline-block;
-    margin-right: 50px; /* Space between news items */
+    margin-right: 50px; 
     font-size: 1.2rem;
   }
   
