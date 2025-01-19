@@ -1,170 +1,476 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Student Wellness Dashboard</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-    <div id="dashboard-page">
-      <div class="dashboard-container">
-        <header class="dashboard-header">
-          <h1>Student Wellness Dashboard</h1>
-          <div class="header-actions">
-            <button id="settings-btn" class="btn btn-icon">
-              <i class="ri-settings-3-line"></i>
-            </button>
-            <div class="profile-dropdown">
-              <button class="btn btn-icon" id="profile-btn">
-                <img
-                  src="https://api.dicebear.com/7.x/avataaars/svg?seed=John"
-                  alt="Profile"
-                  class="avatar"
-                />
-              </button>
-              <div class="dropdown-menu hidden" id="profile-menu">
-                <div class="dropdown-header">
-                  <p class="user-name">John Doe</p>
-                  <p class="user-email">john@example.com</p>
-                </div>
-                <hr />
-                <a href="#" class="dropdown-item"
-                  ><i class="ri-settings-3-line"></i> Settings</a
-                >
-                <a href="#" class="dropdown-item" id="logout-btn"
-                  ><i class="ri-logout-box-line"></i> Logout</a
-                >
-              </div>
-            </div>
-          </div>
-        </header>
+<title>Student Wellness Dashboard</title>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  /* Circle styles */
+  .progress-circle {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid #ccc;
+    margin: 20px auto;
+    background-color: #e0e0e0;
+    overflow: hidden;
+  }
 
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-icon blue"><i class="ri-drop-line"></i></div>
-            <h3>Water Intake</h3>
-            <div class="progress-circle" data-value="75">
-              <span class="progress-value">75%</span>
-            </div>
+  .circle-fill {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 0;
+    transition: height 1s ease-out;
+  }
+
+  /* Progress Bar Styles */
+  .progress-bar-container {
+    width: 100%;
+    height: 10px;
+    background-color: #e0e0e0;
+    margin-top: 10px;
+    border-radius: 5px;
+  }
+
+  .progress-bar {
+    height: 100%;
+    width: 0%;
+    transition: width 1s ease-out;
+    border-radius: 5px;
+  }
+
+  /* Color and increment styles */
+  .water-fill {
+    background-color: lightblue;
+  }
+
+  .study-fill {
+    background-color: yellow;
+  }
+
+  .meals-fill {
+    background-color: green;
+  }
+
+  .sleep-fill {
+    background-color: purple;
+  }
+
+  /* General styles */
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+  }
+
+  .dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 px;
+    position:relative
+    
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .stats-grid {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .stat-card {
+    width: 50%;
+    text-align: center;
+    background: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .stat-icon {
+    font-size: 30px;
+    margin-bottom: 10px;
+  }
+
+
+  .btn {
+    padding: 10px;
+    background-color: #5C6BC0;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .btn-outline {
+    background-color: transparent;
+    border: 1px solid #5C6BC0;
+    color: #5C6BC0;
+  }
+
+  .counter {
+    font-size: 18px;
+    margin-top: 10px;
+  }
+
+  .custom-input-container {
+    margin-bottom: 10px;
+  }
+
+  .custom-input-container label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .custom-input-container input {
+    width: 100%;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  
+.wellness-chart{
+  margin-top: 75px;
+
+}
+</style>
+</head>
+
+<body>
+  <div id="dashboard-page">
+    <div class="dashboard-container">
+      <header class="dashboard-header">
+        <h1>Student Wellness Dashboard</h1>
+      </header>
+      <!-- Stats Grid -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>Water Intake</h3>
+          <div class="custom-input-container">
+            <label for="customWaterGoal">Set Water Goal (Cups):</label>
+            <input type="number" id="customWaterGoal" placeholder="Enter goal cups" />
           </div>
-          <div class="stat-card">
-            <div class="stat-icon purple"><i class="ri-moon-line"></i></div>
-            <h3>Sleep Hours</h3>
-            <div class="progress-circle" data-value="60">
-              <span class="progress-value">60%</span>
-            </div>
+          <div class="progress-circle" id="waterCircle">
+            <div class="circle-fill" id="waterFill"></div>
           </div>
-          <div class="stat-card">
-            <div class="stat-icon orange"><i class="ri-cup-line"></i></div>
-            <h3>Study Breaks</h3>
-            <div class="progress-circle" data-value="40">
-              <span class="progress-value">40%</span>
-            </div>
+          <div class="counter" id="waterCounter">0/10</div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" id="waterProgressBar"></div>
           </div>
-          <div class="stat-card">
-            <div class="stat-icon green">
-              <i class="ri-emotion-happy-line"></i>
-            </div>
-            <h3>Mood</h3>
-            <div class="progress-circle" data-value="85">
-              <span class="progress-value">85%</span>
-            </div>
-          </div>
+          <!-- Add water buttons -->
+          <button class="btn btn-outline" id="addWater">Add 1 Cup</button>
         </div>
-
-        <div class="dashboard-grid">
-          <div class="quick-actions-panel">
-            <div class="card">
-              <h2>Quick Actions</h2>
-              <div class="quick-actions-list">
-                <button class="btn btn-outline">
-                  <i class="ri-drop-line"></i> Log Water
-                </button>
-                <button class="btn btn-outline">
-                  <i class="ri-moon-line"></i> Log Sleep
-                </button>
-                <button class="btn btn-outline">
-                  <i class="ri-cup-line"></i> Set Break
-                </button>
-                <button class="btn btn-outline">
-                  <i class="ri-emotion-happy-line"></i> Track Mood
-                </button>
-              </div>
-            </div>
+        <div class="stat-card">
+          <h3>Sleep Hours</h3>
+          <div class="custom-input-container">
+            <label for="customSleepGoal">Set Sleep Goal (Hours):</label>
+            <input type="number" id="customSleepGoal" placeholder="Enter goal hours" />
           </div>
-
-          <div class="wellness-chart">
-            <div class="card">
-              <h2>Weekly Wellness Summary</h2>
-              <div class="chart-container">
-                <!-- Chart will be added with JavaScript -->
-              </div>
-            </div>
+          <div class="progress-circle" id="sleepCircle">
+            <div class="circle-fill" id="sleepFill"></div>
           </div>
-
-          <div class="wellness-timer">
-            <div class="card">
-              <h2>Wellness Timer</h2>
-              <div class="timer-display">15:00</div>
-              <select class="timer-duration">
-                <option value="5">5 minutes</option>
-                <option value="10">10 minutes</option>
-                <option value="15" selected>15 minutes</option>
-                <option value="20">20 minutes</option>
-                <option value="30">30 minutes</option>
-              </select>
-              <button class="btn btn-primary w-full" id="timer-btn">
-                <i class="ri-play-line"></i> Start
-              </button>
-            </div>
+          <div class="counter" id="sleepCounter">0/8</div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" id="sleepProgressBar"></div>
           </div>
-
-          <div class="exercise-section">
-            <div class="card exercise-widget">
-              <div class="card-header">
-                <h2>Today's Exercises</h2>
-                <button class="btn btn-outline">
-                  <i class="ri-boxing-line"></i> Generate Routine
-                </button>
-              </div>
-              <div class="exercise-list">
-                <!-- Exercise items will be added with JavaScript -->
-              </div>
-            </div>
-
-            <div class="card workout-generator">
-              <h2>Generate Workout</h2>
-              <div class="form-group">
-                <label>Intensity Level</label>
-                <select>
-                  <option>Beginner</option>
-                  <option>Intermediate</option>
-                  <option>Advanced</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Duration (minutes)</label>
-                <select>
-                  <option>15</option>
-                  <option selected>30</option>
-                  <option>45</option>
-                  <option>60</option>
-                </select>
-              </div>
-              <button class="btn btn-primary w-full">
-                Generate Workout Plan
-              </button>
-            </div>
+          <!-- Add sleep button -->
+          <button class="btn btn-outline" id="addSleep">Add 1 Hour</button>
+        </div>
+        <div class="stat-card">
+          <h3>Study Breaks</h3>
+          <div class="custom-input-container">
+            <label for="customBreakGoal">Set Study Break Goal:</label>
+            <input type="number" id="customBreakGoal" placeholder="Enter goal breaks" />
           </div>
+          <div class="progress-circle" id="breakCircle">
+            <div class="circle-fill" id="breakFill"></div>
+          </div>
+          <div class="counter" id="breakCounter">0/5</div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" id="breakProgressBar"></div>
+          </div>
+          <!-- Add break button -->
+          <button class="btn btn-outline" id="addBreak">Add 1 Break</button>
+        </div>
+        <div class="stat-card">
+          <h3>Meals</h3>
+          <div class="custom-input-container">
+            <label for="customMealGoal">Set Meal Goal:</label>
+            <input type="number" id="customMealGoal" placeholder="Enter goal meals" />
+          </div>
+          <div class="progress-circle" id="mealCircle">
+            <div class="circle-fill" id="mealFill"></div>
+          </div>
+          <div class="counter" id="mealCounter">0/10</div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" id="mealProgressBar"></div>
+          </div>
+          <button class="btn btn-outline" id="addMeals">Add 1 Meal</button>
         </div>
       </div>
+      <!-- Quick Actions -->
+      <div class="quick-actions-panel">
+        <button class="btn btn-outline" id="resetBtn">
+          Reset to 0
+        </button>
+      </div>
     </div>
+  </div>
+  <script>
+    // Initial progress values
+    let waterProgress = 0;
+    let sleepProgress = 0;
+    let breakProgress = 0;
+    let mealProgress = 0;
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="script.js"></script>
-  </body>
+    let maxWaterGoal = 10;
+    let maxSleepGoal = 8;
+    let maxBreakGoal = 5;
+    let maxMealGoal = 10;
+
+    // Function to update progress
+    function updateProgress(circleId, fillId, progress, increment, maxProgress, color, counterId, progressBarId) {
+      if (progress < maxProgress) {
+        progress += increment;
+        const percentage = (progress / maxProgress) * 100;
+        document.getElementById(fillId).style.height = `${percentage}%`;
+        document.getElementById(fillId).style.backgroundColor = color;
+        document.getElementById(progressBarId).style.width = `${percentage}%`;
+        document.getElementById(counterId).textContent = `${progress}/${maxProgress}`;
+      }
+      return progress;
+    }
+
+    // Function to set custom goals
+    function setCustomGoals() {
+      maxWaterGoal = parseInt(document.getElementById('customWaterGoal').value) || 10;
+      maxSleepGoal = parseInt(document.getElementById('customSleepGoal').value) || 8;
+      maxBreakGoal = parseInt(document.getElementById('customBreakGoal').value) || 5;
+      maxMealGoal = parseInt(document.getElementById('customMealGoal').value) || 10;
+    }
+
+    // Water button functionality
+    document.getElementById('addWater').addEventListener('click', function () {
+      setCustomGoals();
+      waterProgress = updateProgress('waterCircle', 'waterFill', waterProgress, 1, maxWaterGoal, 'lightblue', 'waterCounter', 'waterProgressBar');
+    });
+
+    // Sleep button functionality
+    document.getElementById('addSleep').addEventListener('click', function () {
+      setCustomGoals();
+      sleepProgress = updateProgress('sleepCircle', 'sleepFill', sleepProgress, 1, maxSleepGoal, 'purple', 'sleepCounter', 'sleepProgressBar');
+    });
+
+    // Study Break button functionality
+    document.getElementById('addBreak').addEventListener('click', function () {
+      setCustomGoals();
+      breakProgress = updateProgress('breakCircle', 'breakFill', breakProgress, 1, maxBreakGoal, 'yellow', 'breakCounter', 'breakProgressBar');
+    });
+
+    // Mood button functionality
+    document.getElementById('addMeals').addEventListener('click', function () {
+      setCustomGoals();
+      mealProgress = updateProgress('mealCircle', 'mealFill', mealProgress, 1, maxMealGoal, 'green', 'mealCounter', 'mealProgressBar');
+    });
+
+    // Reset button functionality
+    document.getElementById('resetBtn').addEventListener('click', function () {
+      waterProgress = 0;
+      sleepProgress = 0;
+      breakProgress = 0;
+      mealProgress = 0;
+
+      document.getElementById('waterFill').style.height = '0%';
+      document.getElementById('waterProgressBar').style.width = '0%';
+      document.getElementById('waterCounter').textContent = '0/10';
+
+      document.getElementById('sleepFill').style.height = '0%';
+      document.getElementById('sleepProgressBar').style.width = '0%';
+      document.getElementById('sleepCounter').textContent = '0/8';
+
+      document.getElementById('breakFill').style.height = '0%';
+      document.getElementById('breakProgressBar').style.width = '0%';
+      document.getElementById('breakCounter').textContent = '0/5';
+
+      document.getElementById('mealFill').style.height = '0%';
+      document.getElementById('mealProgressBar').style.width = '0%';
+      document.getElementById('mealCounter').textContent = '0/10';
+    });
+  </script>
+</body>
+
+</html>
+
+<div class="wellness-chart">
+  <div class="card">
+    <h2>Weekly Wellness Summary</h2>
+    <div class="chart-container">
+    </div>
+  </div>
+</div>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wellness Timer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+
+    .timer-container {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 80px;
+      text-align: center;
+      margin-left: 24px;
+      margin-top: 15px;
+    }
+
+    .timer-container h1 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .timer {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+
+    select,
+    button {
+      padding: 10px 15px;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin: 5px;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="timer-container">
+    <h1>Wellness Timer</h1>
+    <div class="timer" id="timerDisplay">15:00</div>
+    <select id="timeSelector">
+      <option value="300">5 minutes</option>
+      <option value="600">10 minutes</option>
+      <option value="900" selected>15 minutes</option>
+      <option value="1200">20 minutes</option>
+      <option value="1800">30 minutes</option>
+    </select>
+    <button id="startButton">▶ Start</button>
+  </div>
+
+  <script>
+    let countdownInterval; // To store the timer interval
+    const timerDisplay = document.getElementById('timerDisplay');
+    const timeSelector = document.getElementById('timeSelector');
+    const startButton = document.getElementById('startButton');
+    let timeRemaining; // Time in seconds
+
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    function startTimer() {
+      // Clear any existing interval
+      clearInterval(countdownInterval);
+
+      // Get selected time and set initial display
+      timeRemaining = parseInt(timeSelector.value, 10);
+      timerDisplay.textContent = formatTime(timeRemaining);
+
+      // Start countdown
+      countdownInterval = setInterval(() => {
+        if (timeRemaining > 0) {
+          timeRemaining--;
+          timerDisplay.textContent = formatTime(timeRemaining);
+        } else {
+          clearInterval(countdownInterval);
+          alert('Time is up! Take a break!');
+        }
+      }, 1000);
+    }
+
+    // Attach event listener to the Start button
+    startButton.addEventListener('click', startTimer);
+  </script>
+</body>
+
+<div class="exercise-section">
+  <div class="card exercise-widget">
+    <div class="card-header">
+      <h2>Today's Exercises</h2>
+      <button class="btn btn-outline">
+        <i class="ri-boxing-line"></i> Generate Routine
+      </button>
+    </div>
+    <div class="exercise-list">
+      
+    </div>
+  </div>
+
+  <div class="card workout-generator">
+    <h2>Generate Workout</h2>
+    <div class="form-group">
+      <label>Intensity Level</label>
+      <select>
+        <option>Beginner</option>
+        <option>Intermediate</option>
+        <option>Advanced</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Duration (minutes)</label>
+      <select>
+        <option>15</option>
+        <option selected>30</option>
+        <option>45</option>
+        <option>60</option>
+      </select>
+    </div>
+    <button class="btn btn-primary w-full">
+      Generate Workout Plan
+    </button>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="script.js"></script>
+</body>
+
 </html>
